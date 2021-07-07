@@ -1,0 +1,8 @@
+todo:
+  amqp:
+    queue: demo
+
+spring:
+  rabbitmq:
+    password: password
+    username: user
