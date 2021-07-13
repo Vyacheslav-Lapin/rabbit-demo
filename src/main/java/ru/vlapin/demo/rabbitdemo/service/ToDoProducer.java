@@ -1,7 +1,7 @@
 package ru.vlapin.demo.rabbitdemo.service;
 
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -13,8 +13,8 @@ public interface ToDoProducer {
   void sendTo(String queue, ToDo toDo);
 }
 
-@Data
 @Slf4j
+@Setter
 @RequiredArgsConstructor
 @ConfigurationProperties("todo.amqp")
 class ToDoProducerImpl implements ToDoProducer {
@@ -33,7 +33,7 @@ class ToDoProducerImpl implements ToDoProducer {
   }
 
   @Override
-  public void sendTo(String queue, ToDo toDo){
+  public void sendTo(String queue, ToDo toDo) {
     rabbitTemplate.convertAndSend(queue, toDo);
     log.info("Producer > Message Sent ({})", toDo);
   }
