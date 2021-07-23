@@ -26,17 +26,26 @@ public class RabbitDemoApplication {
   }
 
   @Bean
-  public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(ConnectionFactory connectionFactory) {
+  Jackson2JsonMessageConverter jackson2JsonMessageConverter() {
+    return new Jackson2JsonMessageConverter();
+  }
+
+  @Bean
+  public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(
+      ConnectionFactory connectionFactory,
+      Jackson2JsonMessageConverter jackson2JsonMessageConverter) {
+
     val factory = new SimpleRabbitListenerContainerFactory();
     factory.setConnectionFactory(connectionFactory);
-    factory.setMessageConverter(new Jackson2JsonMessageConverter());
+    factory.setMessageConverter(jackson2JsonMessageConverter);
     return factory;
   }
 
   @Bean
-  public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
+  public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory,
+                                       Jackson2JsonMessageConverter jackson2JsonMessageConverter) {
     val template = new RabbitTemplate(connectionFactory);
-    template.setMessageConverter(new Jackson2JsonMessageConverter());
+    template.setMessageConverter(jackson2JsonMessageConverter);
     return template;
   }
 

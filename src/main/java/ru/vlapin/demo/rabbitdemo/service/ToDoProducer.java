@@ -22,7 +22,6 @@ class ToDoProducerImpl implements ToDoProducer {
   RabbitTemplate rabbitTemplate;
 
   @NonFinal String queue = "demo";
-
   @NonFinal String message = "Lorem ipsum dolor sit amet";
 
   @Scheduled(

@@ -32,21 +32,18 @@ public class ToDo {
   @Column(updatable = false, nullable = false)
   UUID id;
 
-  @Version
-  int version;
+  @Version int version;
 
   @NonNull String name;
-
   @NonNull String description;
-
   @NonNull Boolean completed;
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-
-    return Objects.equals(id, ((ToDo) o).id);
+    return this == o || o != null
+                            && Hibernate.getClass(this) == Hibernate.getClass(o)
+                            && o instanceof ToDo toDo
+                            && Objects.equals(id, toDo.id);
   }
 
   @Override
